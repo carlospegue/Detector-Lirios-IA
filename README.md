@@ -1,27 +1,23 @@
-Carlos Andrés Peguero Muñoz 
-3ero de Ing. Informatica
+# 🌸 Clasificación de Flores Iris con IA (SVM)
 
-# Detector-Lirios-IA
-Modelo de Machine Learning  para clasificar especies de flores utilizando SVM(Support Vector Machine) un algoritmo supervisado usado principalmente para clasificacion
+Este repositorio contiene un modelo de Inteligencia Artificial para la clasificación automática de especies de flores Iris utilizando **Machine Learning**. El modelo analiza dimensiones físicas (sépalo y pétalo) para distinguir entre las especies *Setosa*, *Versicolor* y *Virginica*.
 
-Este proyecto es una aplicación de Inteligencia Artificial que utiliza técnicas de **Machine Learning** para clasificar flores en tres especies distintas: *Setosa*, *Versicolor* y *Virginica*.
+## 🚀 Características del Proyecto
+- **Algoritmo:** Support Vector Machines (SVM).
+- **Optimización:** Búsqueda de hiperparámetros mediante `GridSearchCV`.
+- **Precisión Lograda:** **98%** (Accuracy).
+- **Persistencia:** El modelo se exporta en formato `.pkl` para su uso posterior sin necesidad de re-entrenamiento.
 
-## Descripción del Proyecto
-El objetivo es recrear el famoso experimento de Sir Ronald Fisher (1936) utilizando Python y librerías modernas de IA. El modelo analiza las dimensiones físicas de las flores para predecir su especie con alta precisión.
+## 📊 Resultados del Modelo
+El modelo fue evaluado con un 30% de los datos totales, obteniendo los siguientes resultados destacados:
 
-## El Conjunto de Datos (Dataset)
-Utilizamos el **Iris flower data set**, que contiene 150 muestras. Para cada flor, se miden cuatro características (features) en centímetros:
-1. Longitud del sépalo.
-2. Ancho del sépalo.
-3. Longitud del pétalo.
-4. Ancho del pétalo.
-
-## Herramientas y Algoritmos
-Para este proyecto se implementaron las siguientes tecnologías:
-- **Lenguaje:** Python.
-- **Modelo de IA:** Máquinas de Vectores de Soporte (SVM).
-- **Optimización:** `GridSearchCV` para encontrar los mejores parámetros.
-- **Librerías principales:** `scikit-learn`, `pandas`, `seaborn` y `matplotlib`.
+- **Matriz de Confusión:** Solo una muestra de la especie *Versicolor* fue confundida, logrando una clasificación casi perfecta.
+- **Métricas:** - Precisión promedio: 0.98
+  - F1-Score: 0.98
 
 
 
+## 🛠️ Requisitos
+Para ejecutar este proyecto, necesitas tener instalado Python y las siguientes librerías:
+```bash
+pip install pandas seaborn scikit-learn matplotlib joblib
