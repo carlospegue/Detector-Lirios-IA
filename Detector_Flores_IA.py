@@ -1,31 +1,53 @@
+
 import numpy as np
 import tensorflow as tf
 import os
-
-# Forzamos el uso del Keras de compatibilidad para cargar el modelo
-os.environ['TF_USE_LEGACY_KERAS'] = '1'
 from tf_keras.models import load_model
 from tf_keras.preprocessing import image
 
-# 1. Cargar el modelo
-model = load_model('modelo_flores_cnn.h5')
+# 1. Cargar modelo
+modelo = load_model('modelo_flores_cnn.h5')
 
-# 2. Lista de etiquetas (Oxford 17)
-clases = [
+# 2. Nombres de las 17 flores (en el orden del entrenamiento)
+flores = [
     "Bluebell", "Buttercup", "ColtsFoot", "Cowslip", "Crocus",
     "Daffodil", "Daisy", "Dandelion", "Fritillary", "Iris",
     "LilyValley", "Pansy", "Snowdrop", "Sunflower", "TigerLily",
     "Tulip", "Windflower"
 ]
 
-def predecir(ruta):
+# 3. Función de detección
+def que_flor_es(ruta):
+    """Devuelve el nombre de la flor en la imagen"""
+    # Cargar imagen
     img = image.load_img(ruta, target_size=(224, 224))
-    x = image.img_to_array(img) / 255.0
-    x = np.expand_dims(x, axis=0)
+    # Preprocesar
+    img_array = image.img_to_array(img) / 255.0
+    img_array = np.expand_dims(img_array, axis=0)
+    # Predecir
+    prediccion = modelo.predict(img_array, verbose=0)
+    # Encontrar flor con mayor probabilidad
+    indice = np.argmax(prediccion[0])
+    confianza = prediccion[0][indice] * 100
     
-    preds = model.predict(x)
-    idx = np.argmax(preds)
-    print(f"\n🌸 Flor: {clases[idx]} | ✅ Certeza: {preds[0][idx]*100:.2f}%")
+    return flores[indice], confianza
 
-# Prueba con una foto
-predecir('image_0641.jpg')
+# 4. Uso
+if __name__ == "__main__":
+    # Pedir imagen
+    print("🌺 DETECTOR DE FLORES")
+    print("-" * 30)
+    
+    ruta_imagen = input("Ruta de la foto: ").strip()
+    
+    # Quitar comillas si las tiene
+    ruta_imagen = ruta_imagen.strip('"').strip("'")
+    
+    if not os.path.exists(ruta_imagen):
+        print(f"\n❌ No se encuentra: {ruta_imagen}")
+    else:
+        print("\n🔍 Analizando...")
+        flor, porcentaje = que_flor_es(ruta_imagen)
+        print(f"\n✅ RESULTADO: {flor} ({porcentaje:.1f}% seguro)")
+    
+    input("\nPresiona Enter para terminar...")
